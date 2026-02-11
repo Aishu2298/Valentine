@@ -16,13 +16,13 @@
   --accent2:#ff4da6;
 }
  
+/* ===== GLOBAL ===== */
 html,body{
   margin:0;
   height:100%;
   font-family:"Poppins",sans-serif;
   overflow:hidden;
 }
- 
 body{
   background:linear-gradient(135deg,var(--pink1),var(--pink2),var(--pink3));
   background-size:400% 400%;
@@ -31,49 +31,25 @@ body{
   padding-top:90px;
 }
 @keyframes bg{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
  
-/* ===== FLOATING MAGICAL PARTICLES ===== */
-.particle{
-  position:fixed;
-  width:6px;
-  height:6px;
-  background:white;
-  opacity:.5;
-  border-radius:50%;
-  filter:blur(3px);
-  animation:rise 6s linear infinite;
-}
-@keyframes rise{
-0%{transform:translateY(0)}
-100%{transform:translateY(-800px);opacity:0}
+/* ===== PAGE 1 ===== */
+#firstScreen{
+  display:block;
+  position:relative;
+  z-index:5;
 }
  
-/* ===== TYPEWRITER EFFECT ===== */
-#question{
+h1{
   font-size:42px;
   color:var(--accent);
   text-shadow:0 0 12px rgba(255,0,120,.4);
-  width:100%;
-  display:inline-block;
-  border-right:3px solid var(--accent);
-  white-space:nowrap;
-  overflow:hidden;
-  animation:typing 4s steps(30), blink .75s step-end infinite alternate;
 }
  
-@keyframes typing{
-from { width:0 }
-to { width:100% }
-}
-@keyframes blink{
-50%{border-color:transparent}
-}
- 
-/* ===== BUTTONS ===== */
+/* Buttons */
 .btn{
   padding:16px 40px;
   font-size:24px;
@@ -83,56 +59,88 @@ to { width:100% }
   margin:10px;
   font-weight:700;
 }
- 
-/* YES pulse animation */
 #yesBtn{
   background:var(--accent2);
   color:white;
-  animation:pulse 1.3s infinite;
 }
-@keyframes pulse{
-0%{transform:scale(1)}
-50%{transform:scale(1.15)}
-100%{transform:scale(1)}
-}
- 
+#yesBtn:hover{transform:scale(1.1)}
 #noBtn{
   background:#333;
   color:white;
   position:absolute;
 }
  
-/* Sparkle trail */
-.sparkle{
+/* Floating hearts */
+.heart{
   position:fixed;
-  width:10px;
-  height:10px;
-  background:yellow;
-  border-radius:50%;
-  box-shadow:0 0 12px yellow;
-  animation:spark 1s linear forwards;
+  bottom:-20px;
+  color:red;
+  font-size:26px;
+  animation:float 4s linear infinite;
+  pointer-events:none;
 }
-@keyframes spark{
-0%{opacity:1;transform:scale(1)}
-100%{opacity:0;transform:scale(3)}
+@keyframes float{
+  0%{opacity:1}
+  100%{opacity:0;transform:translateY(-800px)}
 }
  
-/* Heart explosion */
-.explode{
+/* Mischief emojis */
+.mischief{
   position:fixed;
-  font-size:30px;
-  animation:boom 1s ease-out forwards;
+  font-size:38px;
+  animation:mPop 1s ease-out forwards;
 }
-@keyframes boom{
-0%{opacity:1;transform:scale(.2)}
-100%{opacity:0;transform:scale(3) rotate(40deg)}
+@keyframes mPop{
+  0%{opacity:0;transform:scale(.3) rotate(-15deg)}
+  40%{opacity:1;transform:scale(1.3) rotate(10deg)}
+  100%{opacity:0;transform:scale(.2) rotate(20deg) translateY(-60px)}
 }
  
-/* PAGE 2 */
+/* YES message box */
+#message{
+  display:none;
+  position:fixed;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(.2);
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  font-size:22px;
+  width:min(90vw,600px);
+  color:#b31764;
+  box-shadow:0 10px 30px rgba(0,0,0,.3);
+  animation:pop .8s forwards;
+}
+@keyframes pop{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}
+  60%{opacity:1;transform:translate(-50%,-50%) scale(1.2)}
+  100%{transform:translate(-50%,-50%) scale(1)}
+}
+ 
+/* NEON */
+#neonText{
+  display:none;
+  position:fixed;
+  top:80%;left:50%;
+  transform:translate(-50%,-50%);
+  font-size:55px;
+  font-weight:900;
+  color:#ff2ebd;
+  text-shadow:0 0 12px #ff2ebd,0 0 25px #ff008c;
+  animation:neon 2s infinite;
+}
+@keyframes neon{
+  0%{opacity:.4}
+  50%{opacity:1}
+  100%{opacity:.4}
+}
+ 
+/* ===== PAGE 2 ===== */
 #secondScreen{
-  display:none !important;
-  visibility:hidden;
-  opacity:0;
+  display:none !important;   /* HARD HIDE */
+  visibility:hidden !important;
+  opacity:0 !important;
+ 
   position:fixed;
   inset:0;
   background:linear-gradient(135deg,#ffacd7,#ffd6e8,#ffc7df);
@@ -144,19 +152,15 @@ to { width:100% }
   z-index:50;
   transition:opacity 1s ease;
 }
- 
 #secondScreen.active{
   display:flex !important;
   visibility:visible !important;
-  opacity:1;
+  opacity:1 !important;
 }
- 
 #secondScreen h2{
   color:#c9136e;
   font-size:38px;
 }
- 
-/* Buttons */
 .option{
   padding:20px;
   width:260px;
@@ -179,7 +183,6 @@ to { width:100% }
   justify-content:center;
   align-items:center;
 }
- 
 .modal-box{
   background:white;
   padding:35px;
@@ -188,7 +191,6 @@ to { width:100% }
   font-size:22px;
   box-shadow:0 12px 35px rgba(0,0,0,.3);
 }
- 
 .okBtn{
   margin-top:20px;
   padding:12px 26px;
@@ -199,18 +201,41 @@ to { width:100% }
   cursor:pointer;
 }
  
-/* Sound Toggle */
-#soundToggle{
+/* ===== FALLING ROSES ===== */
+.rose{
   position:fixed;
-  top:20px;
-  right:20px;
-  background:white;
-  border:none;
-  padding:12px 18px;
-  border-radius:12px;
-  font-size:20px;
-  cursor:pointer;
-  z-index:999;
+  top:-60px;
+  font-size:34px;          /* 🌹 size */
+  pointer-events:none;
+  filter: drop-shadow(0 6px 8px rgba(0,0,0,.15));
+  animation:roseFall linear forwards, sway ease-in-out infinite;
+  opacity:0.95;
+  z-index:40;               /* above background, below modals */
+}
+@keyframes roseFall{
+  0%{ transform:translateY(-80px) rotate(0deg); opacity:0.9;}
+  100%{ transform:translateY(calc(100vh + 80px)) rotate(180deg); opacity:0.2;}
+}
+@keyframes sway{
+  0%{ margin-left: -20px; transform: translateY(0) rotate(-10deg);}
+  50%{ margin-left: 20px;  transform: translateY(0) rotate(10deg);}
+  100%{ margin-left: -20px; transform: translateY(0) rotate(-10deg);}
+}
+ 
+/* Optional faint petals (tiny dots) */
+.petal{
+  position:fixed;
+  top:-20px;
+  width:8px;height:8px;border-radius:50%;
+  background:#ff5a99;
+  opacity:.7;
+  filter:blur(0.6px);
+  animation:petalFall linear forwards;
+  z-index:35;
+}
+@keyframes petalFall{
+  0%{ transform:translateY(-40px); opacity:.9;}
+  100%{ transform:translateY(calc(100vh + 40px)); opacity:.1;}
 }
  
 </style>
@@ -218,143 +243,192 @@ to { width:100% }
  
 <body>
  
-<button id="soundToggle">🔊</button>
- 
+<!-- PAGE 1 -->
 <div id="firstScreen">
-<h1 id="question">Akshay, will you be my Valentine? ❤️</h1>
-<button id="yesBtn" class="btn">Yes</button>
-<button id="noBtn" class="btn">No</button>
+  <h1 id="question">Akshay, will you be my Valentine? ❤️</h1>
+  <button id="yesBtn" class="btn">Yes</button>
+  <button id="noBtn" class="btn">No</button>
 </div>
  
 <!-- YES MESSAGE -->
-<div id="message" style="display:none">
-💖 Thank you for saying YES, Akshay! 💖<br><br>
-"When you smiled, my world learned how to glow.
-When you said yes, my heart learned how to live.” ❤️
+<div id="message">
+  💖 Thank you for saying YES, Akshay! 💖<br><br>
+  "When you smiled,
+  my world learned how to glow.
+  When you said yes,
+  my heart learned how to live.” ❤️
 </div>
  
 <!-- NEON -->
-<div id="neonText" style="display:none">I LOVE YOU AKSHAY 💗</div>
+<div id="neonText">I LOVE YOU AKSHAY 💗</div>
  
 <!-- PAGE 2 -->
 <div id="secondScreen">
-<h2>Akshay, what should we do for our Valentine’s date? ❤️</h2>
-<button id="dinner" class="option">🍽 Dinner</button>
-button id="coffee" class="option">☕ Coffee</button>
+  <h2>Akshay, what should we do for our Valentine’s date? ❤️</h2>
+  <button id="dinner" class="option">🍽 Dinner</button>
+  <button id="coffee" class="option">☕ Coffee</button>
 </div>
  
 <!-- MODAL -->
 <div id="modal">
-<div class="modal-box">
-<h3 id="modalTitle"></h3>
-<p id="modalQuote"></p>
-<button id="modalClose" class="okBtn">Aww Okay ❤️</button>
-</div>
+  <div class="modal-box">
+    <h3 id="modalTitle"></h3>
+    <p id="modalQuote"></p>
+    <button id="modalClose" class="okBtn">Aww Okay ❤️</button>
+  </div>
 </div>
  
 <script>
- 
-/* Floating magical particles */
+/* Floating hearts */
 setInterval(()=>{
-let p=document.createElement("div");
-p.className="particle";
-p.style.left=Math.random()*innerWidth+"px";
-p.style.top=innerHeight+"px";
-document.body.appendChild(p);
-setTimeout(()=>p.remove(),6000);
-},200);
+  let h=document.createElement("div");
+  h.className="heart";
+  h.textContent="❤️";
+  h.style.left=Math.random()*innerWidth+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),4000);
+},300);
  
-/* Sparkles on cursor */
-document.addEventListener("mousemove",e=>{
-let s=document.createElement("div");
-s.className="sparkle";
-s.style.left=e.clientX+"px";
-s.style.top=e.clientY+"px";
-document.body.appendChild(s);
-setTimeout(()=>s.remove(),800);
-});
+/* Naughty emoji function */
+const naughty=["😜","😝","🤪","😈","😉","😂"];
+function naughtyPop(x,y){
+  let em=document.createElement("div");
+  em.className="mischief";
+  em.textContent=naughty[Math.floor(Math.random()*naughty.length)];
+  em.style.left=x+"px";
+  em.style.top=y+"px";
+  document.body.appendChild(em);
+  setTimeout(()=>em.remove(),1000);
+}
  
-/* NO button dance */
+/* NO button movement */
 noBtn.onmouseover=(e)=>{
-noBtn.style.left=Math.random()*(innerWidth-160)+"px";
-noBtn.style.top=Math.random()*(innerHeight-160)+"px";
+  for(let i=0;i<4;i++) naughtyPop(e.clientX,e.clientY);
+  noBtn.style.left=Math.random()*(innerWidth-160)+"px";
+  noBtn.style.top=Math.random()*(innerHeight-160)+"px";
 };
  
-/* YES explosion */
+/* ===== FALLING ROSES LOGIC ===== */
+function dropSingleRose(x, duration=7000){
+  const r=document.createElement("div");
+  r.className="rose";
+  r.textContent="🌹";
+  r.style.left = x+"px";
+  // Randomize speed, sway, size, rotation
+  const scale = 0.8 + Math.random()*0.9;             // 0.8x to 1.7x
+  const fallMs = duration * (0.8 + Math.random()*0.6);// ±20–60%
+  const delay = Math.random()*800;                    // slight delay
+  const rotate = (Math.random()*40-20) + "deg";
+  r.style.fontSize = (28*scale) + "px";
+  r.style.animationDuration = `${fallMs}ms, ${2800 + Math.random()*1800}ms`;
+  r.style.animationDelay = `${delay}ms, ${delay/2}ms`;
+  r.style.transform = `rotate(${rotate})`;
+  document.body.appendChild(r);
+  setTimeout(()=>r.remove(), fallMs + 1200);
+}
+ 
+function burstRoses(count=20, centerX=innerWidth/2){
+  for(let i=0;i<count;i++){
+    const spread = 200; // horizontal spread for burst
+    const x = centerX + (Math.random()*spread - spread/2);
+    dropSingleRose(Math.max(10, Math.min(innerWidth-20, x)), 6000);
+  }
+}
+ 
+function gentleRoseRain(){
+  // continuous gentle rain
+  const x = Math.random()*innerWidth;
+  dropSingleRose(x, 8000);
+}
+let roseRainInterval = setInterval(gentleRoseRain, 500); // rose every 0.5s
+ 
+/* Optional tiny petals */
+function dropPetal(){
+  const p=document.createElement("div");
+  p.className="petal";
+  p.style.left = Math.random()*innerWidth + "px";
+  const dur = 5000 + Math.random()*4000;
+  p.style.animationDuration = dur + "ms";
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(), dur+200);
+}
+let petalInterval = setInterval(dropPetal, 220);
+ 
+/* YES CLICK */
 yesBtn.onclick=()=>{
  
-for(let i=0;i<20;i++){
-let h=document.createElement("div");
-h.className="explode";
-h.textContent="💖";
-h.style.left=(innerWidth/2)+"px";
-h.style.top=(innerHeight/2)+"px";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),1000);
-}
+  // Celebrate with a rose burst at center
+  burstRoses(28, innerWidth/2);
  
-question.style.display="none";
-noBtn.style.display="none";
-message.style.display="block";
-neonText.style.display="block";
+  // Show your existing YES flow
+  question.style.display="none";
+  noBtn.style.display="none";
+  message.style.display="block";
+  neonText.style.display="block";
  
-bg.play();
+  let bg=new Audio("https://cdn.pixabay.com/audio/2023/02/14/audio_70f0f7c4df.mp3");
+  bg.volume=.5;
+  bg.play();
  
-/* Move to Page 2 */
-setTimeout(()=>{
-firstScreen.style.display="none";
-message.style.display="none";
-neonText.style.display="none";
-secondScreen.classList.add("active");
+  /* After delay show Page 2 */
+  setTimeout(()=>{
+    firstScreen.style.display="none";
+    message.style.display="none";
+    neonText.style.display="none";
  
-/* Confetti */
-for(let i=0;i<80;i++){
-let c=document.createElement("div");
-c.textContent="🎉";
-c.style.position="fixed";
-c.style.left=Math.random()*innerWidth+"px";
-c.style.top="-20px";
-c.style.fontSize="30px";
-c.style.animation=`fall ${2+Math.random()*3}s linear forwards`;
-document.body.appendChild(c);
-setTimeout(()=>c.remove(),5000);
-}
-},5000);
+    /* Activate SECOND PAGE */
+    secondScreen.classList.add("active");
+  },6000);
 };
  
-dinner.onclick=()=>{
-modalTitle.textContent="Dinner Date 🍽️";
-modalQuote.innerHTML=`Romantic dinner with my favorite person 💖<br><br>“Your presence makes everything taste sweeter.”`;
-modal.style.display="flex";
-coffee.style.display="none";
+/* PAGE 2 LOGIC */
+dinner.onclick = () => {
+  modalTitle.textContent = "Dinner Date 🍽️";
+  modalQuote.innerHTML =
+    `Let’s make tonight romantic and unforgettable. 💖<br><br>
+    “In your eyes, I find the warmth my heart always searched for.”`;
+  modal.style.display = "flex";
+  coffee.style.display = "none";
 };
  
-coffee.onclick=()=>{
-modalTitle.textContent="Coffee Date ☕";
-modalQuote.innerHTML=`Warm coffee, warmer moments with you ❤️<br><br>“Every sip becomes magic when you’re beside me.”`;
-modal.style.display="flex";
-dinner.style.display="none";
+coffee.onclick = () => {
+  modalTitle.textContent = "Coffee Date ☕";
+  modalQuote.innerHTML =
+    `Warm coffee and warmer conversation with you ❤️<br><br>
+    “Your presence turns even a simple cup into a memory worth keeping forever.”`;
+  modal.style.display = "flex";
+  dinner.style.display = "none";
 };
  
 modalClose.onclick=()=>modal.style.display="none";
- 
-/* Background Music */
-let bg=new Audio("https://cdn.pixabay.com/audio/2023/02/14/audio_70f0f7c4df.mp3");
-bg.loop=true;
-bg.volume=.5;
- 
-soundToggle.onclick=()=>{
-if(bg.paused){bg.play();soundToggle.textContent="🔊";}
-else{bg.pause();soundToggle.textContent="🔈";}
-};
- 
 </script>
+ 
 </body>
 </html>
+ 
+
+
+  
+
+
+ 
+ 
+ 
+ 
+  
+ 
+ 
+
+
+
+
+
+
 
 
 
  
+
 
   
  
@@ -373,3 +447,4 @@ else{bg.pause();soundToggle.textContent="🔈";}
     
   
  
+
