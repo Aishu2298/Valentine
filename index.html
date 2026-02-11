@@ -16,7 +16,6 @@
   --accent2:#ff4da6;
 }
  
-/* ===== GLOBAL ===== */
 html,body{
   margin:0;
   height:100%;
@@ -37,19 +36,44 @@ body{
 100%{background-position:0% 50%}
 }
  
-/* ===== PAGE 1 ===== */
-#firstScreen{
-  display:block;    /* Only Page-1 visible at start */
-  position:relative;
-  z-index:5;
+/* ===== FLOATING MAGICAL PARTICLES ===== */
+.particle{
+  position:fixed;
+  width:6px;
+  height:6px;
+  background:white;
+  opacity:.5;
+  border-radius:50%;
+  filter:blur(3px);
+  animation:rise 6s linear infinite;
+}
+@keyframes rise{
+0%{transform:translateY(0)}
+100%{transform:translateY(-800px);opacity:0}
 }
  
-h1{
+/* ===== TYPEWRITER EFFECT ===== */
+#question{
   font-size:42px;
   color:var(--accent);
   text-shadow:0 0 12px rgba(255,0,120,.4);
+  width:100%;
+  display:inline-block;
+  border-right:3px solid var(--accent);
+  white-space:nowrap;
+  overflow:hidden;
+  animation:typing 4s steps(30), blink .75s step-end infinite alternate;
 }
  
+@keyframes typing{
+from { width:0 }
+to { width:100% }
+}
+@keyframes blink{
+50%{border-color:transparent}
+}
+ 
+/* ===== BUTTONS ===== */
 .btn{
   padding:16px 40px;
   font-size:24px;
@@ -60,11 +84,17 @@ h1{
   font-weight:700;
 }
  
+/* YES pulse animation */
 #yesBtn{
   background:var(--accent2);
   color:white;
+  animation:pulse 1.3s infinite;
 }
-#yesBtn:hover{transform:scale(1.1)}
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.15)}
+100%{transform:scale(1)}
+}
  
 #noBtn{
   background:#333;
@@ -72,74 +102,37 @@ h1{
   position:absolute;
 }
  
-/* Floating hearts */
-.heart{
+/* Sparkle trail */
+.sparkle{
   position:fixed;
-  bottom:-20px;
-  color:red;
-  font-size:26px;
-  animation:float 4s linear infinite;
-  pointer-events:none;
+  width:10px;
+  height:10px;
+  background:yellow;
+  border-radius:50%;
+  box-shadow:0 0 12px yellow;
+  animation:spark 1s linear forwards;
 }
-@keyframes float{0%{opacity:1}100%{opacity:0;transform:translateY(-800px)}}
- 
-/* Mischief emojis */
-.mischief{
-  position:fixed;
-  font-size:38px;
-  animation:mPop 1s ease-out forwards;
-}
-@keyframes mPop{
-0%{opacity:0;transform:scale(.3) rotate(-15deg)}
-40%{opacity:1;transform:scale(1.3) rotate(10deg)}
-100%{opacity:0;transform:scale(.2) rotate(20deg) translateY(-60px)}
+@keyframes spark{
+0%{opacity:1;transform:scale(1)}
+100%{opacity:0;transform:scale(3)}
 }
  
-/* YES message box */
-#message{
-  display:none;
+/* Heart explosion */
+.explode{
   position:fixed;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%) scale(.2);
-  background:white;
-  padding:30px;
-  border-radius:20px;
-  font-size:22px;
-  width:min(90vw,600px);
-  color:#b31764;
-  box-shadow:0 10px 30px rgba(0,0,0,.3);
-  animation:pop .8s forwards;
+  font-size:30px;
+  animation:boom 1s ease-out forwards;
 }
-@keyframes pop{
-0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}
-60%{opacity:1;transform:translate(-50%,-50%) scale(1.2)}
-100%{transform:translate(-50%,-50%) scale(1)}
+@keyframes boom{
+0%{opacity:1;transform:scale(.2)}
+100%{opacity:0;transform:scale(3) rotate(40deg)}
 }
  
-/* NEON */
-#neonText{
-  display:none;
-  position:fixed;
-  top:80%;left:50%;
-  transform:translate(-50%,-50%);
-  font-size:55px;
-  font-weight:900;
-  color:#ff2ebd;
-  text-shadow:0 0 12px #ff2ebd,0 0 25px #ff008c;
-  animation:neon 2s infinite;
-}
-@keyframes neon{
-0%{opacity:.4}
-50%{opacity:1}
-100%{opacity:.4}
-}
- 
-/* ===== PAGE 2 (FULLY FIXED, FULLY HIDDEN) ===== */
+/* PAGE 2 */
 #secondScreen{
-  display:none !important;   /* HARD HIDE */
-  visibility:hidden !important;
-  opacity:0 !important;
- 
+  display:none !important;
+  visibility:hidden;
+  opacity:0;
   position:fixed;
   inset:0;
   background:linear-gradient(135deg,#ffacd7,#ffd6e8,#ffc7df);
@@ -155,7 +148,7 @@ h1{
 #secondScreen.active{
   display:flex !important;
   visibility:visible !important;
-  opacity:1 !important;
+  opacity:1;
 }
  
 #secondScreen h2{
@@ -206,12 +199,27 @@ h1{
   cursor:pointer;
 }
  
+/* Sound Toggle */
+#soundToggle{
+  position:fixed;
+  top:20px;
+  right:20px;
+  background:white;
+  border:none;
+  padding:12px 18px;
+  border-radius:12px;
+  font-size:20px;
+  cursor:pointer;
+  z-index:999;
+}
+ 
 </style>
 </head>
  
 <body>
  
-<!-- PAGE 1 -->
+<button id="soundToggle">🔊</button>
+ 
 <div id="firstScreen">
 <h1 id="question">Akshay, will you be my Valentine? ❤️</h1>
 <button id="yesBtn" class="btn">Yes</button>
@@ -219,22 +227,20 @@ h1{
 </div>
  
 <!-- YES MESSAGE -->
-<div id="message">
+<div id="message" style="display:none">
 💖 Thank you for saying YES, Akshay! 💖<br><br>
-"When you smiled,
-my world learned how to glow.
-When you said yes,
-my heart learned how to live.”" ❤️
+"When you smiled, my world learned how to glow.
+When you said yes, my heart learned how to live.” ❤️
 </div>
  
 <!-- NEON -->
-<div id="neonText">I LOVE YOU AKSHAY 💗</div>
+<div id="neonText" style="display:none">I LOVE YOU AKSHAY 💗</div>
  
 <!-- PAGE 2 -->
 <div id="secondScreen">
 <h2>Akshay, what should we do for our Valentine’s date? ❤️</h2>
 <button id="dinner" class="option">🍽 Dinner</button>
-<button id="coffee" class="option">☕ Coffee</button>
+button id="coffee" class="option">☕ Coffee</button>
 </div>
  
 <!-- MODAL -->
@@ -248,85 +254,122 @@ my heart learned how to live.”" ❤️
  
 <script>
  
-/* Floating hearts */
+/* Floating magical particles */
 setInterval(()=>{
-let h=document.createElement("div");
-h.className="heart";
-h.textContent="❤️";
-h.style.left=Math.random()*innerWidth+"px";
-document.body.appendChild(h);
-setTimeout(()=>h.remove(),4000);
-},300);
+let p=document.createElement("div");
+p.className="particle";
+p.style.left=Math.random()*innerWidth+"px";
+p.style.top=innerHeight+"px";
+document.body.appendChild(p);
+setTimeout(()=>p.remove(),6000);
+},200);
  
-/* Naughty emoji function */
-const naughty=["😜","😝","🤪","😈","😉","😂"];
-function naughtyPop(x,y){
-let em=document.createElement("div");
-em.className="mischief";
-em.textContent=naughty[Math.floor(Math.random()*naughty.length)];
-em.style.left=x+"px";
-em.style.top=y+"px";
-document.body.appendChild(em);
-setTimeout(()=>em.remove(),1000);
-}
+/* Sparkles on cursor */
+document.addEventListener("mousemove",e=>{
+let s=document.createElement("div");
+s.className="sparkle";
+s.style.left=e.clientX+"px";
+s.style.top=e.clientY+"px";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),800);
+});
  
-/* NO button movement */
+/* NO button dance */
 noBtn.onmouseover=(e)=>{
-for(let i=0;i<4;i++) naughtyPop(e.clientX,e.clientY);
 noBtn.style.left=Math.random()*(innerWidth-160)+"px";
 noBtn.style.top=Math.random()*(innerHeight-160)+"px";
 };
  
-/* YES CLICK */
+/* YES explosion */
 yesBtn.onclick=()=>{
  
-  question.style.display="none";
-  noBtn.style.display="none";
-  message.style.display="block";
-  neonText.style.display="block";
+for(let i=0;i<20;i++){
+let h=document.createElement("div");
+h.className="explode";
+h.textContent="💖";
+h.style.left=(innerWidth/2)+"px";
+h.style.top=(innerHeight/2)+"px";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),1000);
+}
  
-  let bg=new Audio("https://cdn.pixabay.com/audio/2023/02/14/audio_70f0f7c4df.mp3");
-  bg.volume=.5;
-  bg.play();
+question.style.display="none";
+noBtn.style.display="none";
+message.style.display="block";
+neonText.style.display="block";
  
-  /* After delay show Page 2 */
-  setTimeout(()=>{
-    firstScreen.style.display="none";
-    message.style.display="none";
-    neonText.style.display="none";
+bg.play();
  
-    /* ★ Activate SECOND PAGE PROPERLY */
-    secondScreen.classList.add("active");
+/* Move to Page 2 */
+setTimeout(()=>{
+firstScreen.style.display="none";
+message.style.display="none";
+neonText.style.display="none";
+secondScreen.classList.add("active");
  
-  },6000);
+/* Confetti */
+for(let i=0;i<80;i++){
+let c=document.createElement("div");
+c.textContent="🎉";
+c.style.position="fixed";
+c.style.left=Math.random()*innerWidth+"px";
+c.style.top="-20px";
+c.style.fontSize="30px";
+c.style.animation=`fall ${2+Math.random()*3}s linear forwards`;
+document.body.appendChild(c);
+setTimeout(()=>c.remove(),5000);
+}
+},5000);
 };
  
-/* PAGE 2 LOGIC */
-dinner.onclick = () => {
-  modalTitle.textContent = "Dinner Date 🍽️";
- 
-  modalQuote.innerHTML =
-    `Let’s make tonight romantic and unforgettable. 💖<br><br>
-    “In your eyes, I find the warmth my heart always searched for.”`;
- 
-  modal.style.display = "flex";
-  coffee.style.display = "none";
+dinner.onclick=()=>{
+modalTitle.textContent="Dinner Date 🍽️";
+modalQuote.innerHTML=`Romantic dinner with my favorite person 💖<br><br>“Your presence makes everything taste sweeter.”`;
+modal.style.display="flex";
+coffee.style.display="none";
 };
  
-coffee.onclick = () => {
-  modalTitle.textContent = "Coffee Date ☕";
- 
-  modalQuote.innerHTML =
-    `Warm coffee and warmer conversation with you ❤️<br><br>
-    “Your presence turns even a simple cup into a memory worth keeping forever.”`;
- 
-  modal.style.display = "flex";
-  dinner.style.display = "none";
+coffee.onclick=()=>{
+modalTitle.textContent="Coffee Date ☕";
+modalQuote.innerHTML=`Warm coffee, warmer moments with you ❤️<br><br>“Every sip becomes magic when you’re beside me.”`;
+modal.style.display="flex";
+dinner.style.display="none";
 };
-modalClose.onclick=()=>modal.style.display="none"
+ 
+modalClose.onclick=()=>modal.style.display="none";
+ 
+/* Background Music */
+let bg=new Audio("https://cdn.pixabay.com/audio/2023/02/14/audio_70f0f7c4df.mp3");
+bg.loop=true;
+bg.volume=.5;
+ 
+soundToggle.onclick=()=>{
+if(bg.paused){bg.play();soundToggle.textContent="🔊";}
+else{bg.pause();soundToggle.textContent="🔈";}
+};
  
 </script>
- 
 </body>
 </html>
 
+
+
+ 
+
+  
+ 
+ 
+  
+ 
+  
+
+
+ 
+
+ 
+
+
+
+    
+  
+ 
