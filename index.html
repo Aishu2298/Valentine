@@ -5,7 +5,11 @@
 <title>Valentine Proposal</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
+
 <style>
+
+
 
 /* ===== THEME ===== */
 :root{
@@ -16,6 +20,8 @@
   --accent2:#ff4da6;
 }
 
+
+
 /* ===== GLOBAL ===== */
 html,body{
   margin:0;
@@ -23,6 +29,8 @@ html,body{
   font-family:"Poppins",sans-serif;
   overflow:hidden;
 }
+
+
 
 body{
   background:linear-gradient(135deg,var(--pink1),var(--pink2),var(--pink3));
@@ -37,18 +45,24 @@ body{
 100%{background-position:0% 50%}
 }
 
+
+
 /* ===== PAGE 1 ===== */
 #firstScreen{
-  display:block;
+  display:block;    /* Only Page-1 visible at start */
   position:relative;
   z-index:5;
 }
+
+
 
 h1{
   font-size:42px;
   color:var(--accent);
   text-shadow:0 0 12px rgba(255,0,120,.4);
 }
+
+
 
 .btn{
   padding:16px 40px;
@@ -60,17 +74,23 @@ h1{
   font-weight:700;
 }
 
+
+
 #yesBtn{
   background:var(--accent2);
   color:white;
 }
 #yesBtn:hover{transform:scale(1.1)}
 
+
+
 #noBtn{
   background:#333;
   color:white;
   position:absolute;
 }
+
+
 
 /* Floating hearts */
 .heart{
@@ -83,6 +103,8 @@ h1{
 }
 @keyframes float{0%{opacity:1}100%{opacity:0;transform:translateY(-800px)}}
 
+
+
 /* Mischief emojis */
 .mischief{
   position:fixed;
@@ -94,6 +116,8 @@ h1{
 40%{opacity:1;transform:scale(1.3) rotate(10deg)}
 100%{opacity:0;transform:scale(.2) rotate(20deg) translateY(-60px)}
 }
+
+
 
 /* YES message box */
 #message{
@@ -116,6 +140,8 @@ h1{
 100%{transform:translate(-50%,-50%) scale(1)}
 }
 
+
+
 /* NEON */
 #neonText{
   display:none;
@@ -134,11 +160,15 @@ h1{
 100%{opacity:.4}
 }
 
-/* ===== PAGE 2 ===== */
+
+
+/* ===== PAGE 2 (FULLY FIXED, FULLY HIDDEN) ===== */
 #secondScreen{
-  display:none !important;
+  display:none !important;   /* HARD HIDE */
   visibility:hidden !important;
   opacity:0 !important;
+
+
 
   position:fixed;
   inset:0;
@@ -152,16 +182,22 @@ h1{
   transition:opacity 1s ease;
 }
 
+
+
 #secondScreen.active{
   display:flex !important;
   visibility:visible !important;
   opacity:1 !important;
 }
 
+
+
 #secondScreen h2{
   color:#c9136e;
   font-size:38px;
 }
+
+
 
 /* Buttons */
 .option{
@@ -177,6 +213,8 @@ h1{
 }
 #coffee{background:#d84b6a}
 
+
+
 /* Modal */
 #modal{
   display:none;
@@ -187,6 +225,8 @@ h1{
   align-items:center;
 }
 
+
+
 .modal-box{
   background:white;
   padding:35px;
@@ -195,6 +235,8 @@ h1{
   font-size:22px;
   box-shadow:0 12px 35px rgba(0,0,0,.3);
 }
+
+
 
 .okBtn{
   margin-top:20px;
@@ -206,36 +248,50 @@ h1{
   cursor:pointer;
 }
 
+
+
 </style>
 </head>
 
+
+
 <body>
+
+
 
 <!-- PAGE 1 -->
 <div id="firstScreen">
-<h1 id="question">Akshay, will you be my Valentine? ❤️</h1>
+<h1 id="question">Aho, will you be my Valentine? ❤️</h1>
 <button id="yesBtn" class="btn">Yes</button>
 <button id="noBtn" class="btn">No</button>
 </div>
 
+
+
 <!-- YES MESSAGE -->
 <div id="message">
-💖 Thank you for saying YES, Akshay! 💖<br><br>
+💖 Thank you for saying YES, Aho 💖<br><br>
 "When you smiled,
 my world learned how to glow.
 When you said yes,
 my heart learned how to live.”" ❤️
 </div>
 
+
+
 <!-- NEON -->
-<div id="neonText">I LOVE YOU AKSHAY 💗</div>
+<div id="neonText">I LOVE YOU AHO 💗</div>
+
+
 
 <!-- PAGE 2 -->
 <div id="secondScreen">
-<h2>Akshay, what should we do for our Valentine’s date? ❤️</h2>
+<h2>Aho, what should we do for our Valentine’s date? ❤️</h2>
 <button id="dinner" class="option">🍽 Dinner</button>
 <button id="coffee" class="option">☕ Coffee</button>
 </div>
+
+
 
 <!-- MODAL -->
 <div id="modal">
@@ -246,7 +302,11 @@ my heart learned how to live.”" ❤️
 </div>
 </div>
 
+
+
 <script>
+
+
 
 /* Floating hearts */
 setInterval(()=>{
@@ -258,7 +318,9 @@ document.body.appendChild(h);
 setTimeout(()=>h.remove(),4000);
 },300);
 
-/* Naughty emojis */
+
+
+/* Naughty emoji function */
 const naughty=["😜","😝","🤪","😈","😉","😂"];
 function naughtyPop(x,y){
 let em=document.createElement("div");
@@ -270,6 +332,8 @@ document.body.appendChild(em);
 setTimeout(()=>em.remove(),1000);
 }
 
+
+
 /* NO button movement */
 noBtn.onmouseover=(e)=>{
 for(let i=0;i<4;i++) naughtyPop(e.clientX,e.clientY);
@@ -277,56 +341,105 @@ noBtn.style.left=Math.random()*(innerWidth-160)+"px";
 noBtn.style.top=Math.random()*(innerHeight-160)+"px";
 };
 
+
+
 /* YES CLICK */
 yesBtn.onclick=()=>{
+
+
 
   question.style.display="none";
   noBtn.style.display="none";
   message.style.display="block";
   neonText.style.display="block";
 
+
+
   let bg=new Audio("https://cdn.pixabay.com/audio/2023/02/14/audio_70f0f7c4df.mp3");
   bg.volume=.5;
   bg.play();
 
-  setTimeout(()=>{
-    firstScreen.style.display="none";
-    message.style.display="none";
-    neonText.style.display="none";
 
-    secondScreen.classList.add("active");
+
+  /* After delay show Page 2 */
+  setTimeout(()=>{
+    firstScreen.style.display="none";
+    message.style.display="none";
+    neonText.style.display="none";
+
+
+
+    /* ★ Activate SECOND PAGE PROPERLY */
+    secondScreen.classList.add("active");
+
+
 
   },6000);
 };
+
+
 
 /* PAGE 2 LOGIC */
 dinner.onclick = () => {
   modalTitle.textContent = "Dinner Date 🍽️";
 
+
+
   modalQuote.innerHTML =
-    `Let’s make tonight romantic and unforgettable. 💖<br><br>
-    “In your eyes, I find the warmth my heart always searched for.”`;
+    `Let’s make tonight romantic and unforgettable. 💖<br><br>
+    “In your eyes, I find the warmth my heart always searched for.”`;
+
+
 
   modal.style.display = "flex";
   coffee.style.display = "none";
 };
 
+
+
 coffee.onclick = () => {
   modalTitle.textContent = "Coffee Date ☕";
 
+
+
   modalQuote.innerHTML =
-    `Warm coffee and warmer conversation with you ❤️<br><br>
-    “Your presence turns even a simple cup into a memory worth keeping forever.”`;
+    `Warm coffee and warmer conversation with you ❤️<br><br>
+    “Your presence turns even a simple cup into a memory worth keeping forever.”`;
+
+
 
   modal.style.display = "flex";
   dinner.style.display = "none";
 };
 modalClose.onclick=()=>modal.style.display="none"
 
+
+
 </script>
+
+
 
 </body>
 </html>
+
+
+
+  
+
+
+ 
+ 
+  
+ 
+
+ 
+
+
+
+
+
+
+ 
 
 
   
@@ -430,6 +543,7 @@ modalClose.onclick=()=>modal.style.display="none"
     
   
  
+
 
 
 
