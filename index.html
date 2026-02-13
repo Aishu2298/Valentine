@@ -306,8 +306,8 @@ h1{
   <!-- PAGE 2 -->
   <div id="secondScreen">
     <h2>Aho, what would you like on the occasion of valentine day? ❤️</h2>
-    <button id="Video call + Cadbury" class="option-btn">📱Video call + 🍫Cadbury</button>
-    <button id="Sweet Meet" class="option-btn">🤗 Sweet meet</button>
+    <button id="Call" class="option-btn">📱Video call + 🍫Cadbury</button>
+    <button id="Meet" class="option-btn">🤗 Sweet meet</button>
     <div class="small-note">Pick one—I'll make it unforgettable ✨</div>
   </div>
 
@@ -556,7 +556,7 @@ yesBtn.onclick = ()=>{
 };
 
 /* ================= PAGE 2 LOGIC ================= */
-dinnerBtn.onclick = ()=>{
+CallBtn.onclick = ()=>{
   title.textContent="📱Video call + 🍫Cadbury";
   quote.textContent="I love the way you listen — fully — and how your smile teachesmy world how to glow. With you, kindness feels effortlessand laughter comes home.";
   modal.style.display="flex";
@@ -566,10 +566,10 @@ dinnerBtn.onclick = ()=>{
   spawnFirework(cx-80, cy-40, 330);
   burstConfetti(cx, cy-60);
 
-  coffeeBtn.style.display="none";
+  MeetBtn.style.display="none";
 };
 
-coffeeBtn.onclick = ()=>{
+MeetBtn.onclick = ()=>{
   title.textContent="🤗 Sweet meet";
   quote.textContent="I don’t need a perfect story,I only need us, choosing each other,again and again. Yesterday,Today, I choose you. Tomorrow too. ❤️";
   modal.style.display="flex";
@@ -578,14 +578,14 @@ coffeeBtn.onclick = ()=>{
   spawnFirework(cx+60, cy-30, 315);
   burstConfetti(cx, cy-60);
 
-  dinnerBtn.style.display="none";
+  CallBtn.style.display="none";
 };
 
 modalClose.onclick = ()=>{
   modal.style.display="none";
   // allow re-choose if you want
-  dinnerBtn.style.display="";
-  coffeeBtn.style.display="";
+  CallBtn.style.display="";
+  MeetBtn.style.display="";
 };
 </script>
 </body>
@@ -711,6 +711,7 @@ modalClose.onclick = ()=>{
     
   
  
+
 
 
 
