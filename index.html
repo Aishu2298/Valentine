@@ -296,8 +296,7 @@ h1{
     💖 Thank you for saying YES to your श्री सखी, Dear अहो! 💖<br /><br />
     ❤️My heart didn't choose you...It recognized you.Like it had been waiting for you all this time.❤️You make my life complete.❤️
     Every ordinary day turns a little brighter when I think of you.
-    You are the gentle pause in my busy hours, the warm echo between
-    heartbeats, the reason small moments feel like miracles.❤️
+    You are the warm echo between heartbeats, the reason small moments feel like miracles.❤️
   </div>
 
   <!-- NEON -->
@@ -307,7 +306,7 @@ h1{
   <div id="secondScreen">
     <h2>Aho, what would you like on the occasion of valentine day? ❤️</h2>
     <button id="Video call + Cadbury" class="option-btn">📱Video call + 🍫Cadbury</button>
-    <button id="Sweet Meet" class="option-btn">🤗 Sweet meet</button>
+    <button id="Want to meet you" class="option-btn">❤️ Want to meet you</button>
     <div class="small-note">Tell me one—I'll make it unforgettable ✨</div>
   </div>
 
@@ -556,7 +555,7 @@ yesBtn.onclick = ()=>{
 };
 
 /* ================= PAGE 2 LOGIC ================= */
-dinnerBtn.onclick = ()=>{
+video call + CadburyBtn.onclick = ()=>{
   title.textContent="📱Video call + 🍫Cadbury";
   quote.textContent="I love the way you listen — fully — and how your smile teachesmy world how to glow. With you, kindness feels effortlessand laughter comes home.";
   modal.style.display="flex";
@@ -566,10 +565,10 @@ dinnerBtn.onclick = ()=>{
   spawnFirework(cx-80, cy-40, 330);
   burstConfetti(cx, cy-60);
 
-  coffeeBtn.style.display="none";
+  Want to meet youBtn.style.display="none";
 };
 
-coffeeBtn.onclick = ()=>{
+Want to meet youBtn.onclick = ()=>{
   title.textContent="🤗 Sweet meet";
   quote.textContent="I don’t need a perfect story,I only need us, choosing each other,again and again. Yesterday,Today, I choose you. Tomorrow too. ❤️";
   modal.style.display="flex";
@@ -578,14 +577,14 @@ coffeeBtn.onclick = ()=>{
   spawnFirework(cx+60, cy-30, 315);
   burstConfetti(cx, cy-60);
 
-  dinnerBtn.style.display="none";
+  Video call + CadburyBtn.style.display="none";
 };
 
 modalClose.onclick = ()=>{
   modal.style.display="none";
   // allow re-choose if you want
-  dinnerBtn.style.display="";
-  coffeeBtn.style.display="";
+  Video call + CadburyBtn.style.display="";
+  Want to meet youBtn.style.display="";
 };
 </script>
 </body>
@@ -712,6 +711,7 @@ modalClose.onclick = ()=>{
     
   
  
+
 
 
 
